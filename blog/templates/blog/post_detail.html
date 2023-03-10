@@ -10,10 +10,25 @@
             {% endif %}
         </aside>
         {% if post.published_date %}
-            <time class="date">
+            <time>
                 {{ post.published_date }}
             </time>
-        {% endif %}
+        {% else %}
+        <aside class="actions">
+            {% if user.is_authenticated %}
+                <a class = 'btn btn-secondary' href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+            {% endif %}
+        </aside>
+        {% endif %}  
+
+        <aside class="actions">
+            {% if user.is_authenticated %}
+                <a class="btn btn-secondary" href="{% url 'post_delete' pk=post.pk %}">
+                    {% include './icons/trash-fill.svg' %}
+                </a>
+            {% endif %}
+        </aside>
+         
         <h2>{{ post.title }}</h2>
         <p>{{ post.text|linebreaksbr }}</p>
     </article>
